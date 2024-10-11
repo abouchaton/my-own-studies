@@ -1,40 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strncmp.c                                       :+:      :+:    :+:   */
+/*   ft_lstclear_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abouchat <abouchat@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/24 16:03:19 by abouchat          #+#    #+#             */
-/*   Updated: 2024/10/03 15:58:36 by abouchat         ###   ########.fr       */
+/*   Created: 2024/10/07 17:31:30 by abouchat          #+#    #+#             */
+/*   Updated: 2024/10/08 16:35:01 by abouchat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_strncmp(const char *s1, const char *s2, size_t n)
+void	ft_lstclear(t_list **lst, void (*del)(void *))
 {
-	size_t	i;
+	t_list	*curr;
+	t_list	*aux;
 
-	i = 0;
-	while ((s1[i] != '\0' || s2[i] != '\0') && i < n)
+	if (!lst || !del)
 	{
-		if (s1[i] < s2[i] || s1[i] > s2[i])
-			return (s1[i] - s2[i]);
-		else
-			i++;
+		lst = NULL;
+		return ;
 	}
-	return (0);
+	curr = *lst;
+	while (curr)
+	{
+		aux = curr;
+		del(curr->content);
+		curr = curr->next;
+		free(aux);
+	}
+	*lst = NULL;
 }
-/*
-int	main(void)
-{
-	#include <stdio.h>
-	#include <string.h>
-	char	*str1 = "salve";
-	char	*str2 = "zalve";
-
-	printf("%d\n", ft_strncmp(str1, str2, 0));
-	printf("%d\n", strncmp(str1, str2, 0));
-
-}*/

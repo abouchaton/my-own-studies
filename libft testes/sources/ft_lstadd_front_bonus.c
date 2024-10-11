@@ -1,40 +1,48 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strncmp.c                                       :+:      :+:    :+:   */
+/*   ft_lstadd_front_bonus.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abouchat <abouchat@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/24 16:03:19 by abouchat          #+#    #+#             */
-/*   Updated: 2024/10/03 15:58:36 by abouchat         ###   ########.fr       */
+/*   Created: 2024/10/07 10:39:52 by abouchat          #+#    #+#             */
+/*   Updated: 2024/10/07 14:56:20 by abouchat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_strncmp(const char *s1, const char *s2, size_t n)
+void	ft_lstadd_front(t_list **lst, t_list *new)
 {
-	size_t	i;
-
-	i = 0;
-	while ((s1[i] != '\0' || s2[i] != '\0') && i < n)
+	if (new == NULL)
+		return ;
+	if (lst == NULL)
 	{
-		if (s1[i] < s2[i] || s1[i] > s2[i])
-			return (s1[i] - s2[i]);
-		else
-			i++;
+		lst = &new;
+		return ;
 	}
-	return (0);
+	new->next = *lst;
+	*lst = new;
 }
 /*
-int	main(void)
+int main(void)
 {
 	#include <stdio.h>
-	#include <string.h>
-	char	*str1 = "salve";
-	char	*str2 = "zalve";
+  t_list *node1, *node2;
+  
+  int val2 = 2;
+  int val1 = 1;
+  t_list *curr;
+  
+  node2 = ft_lstnew(&val2);
+  node1 = ft_lstnew(&val1);
 
-	printf("%d\n", ft_strncmp(str1, str2, 0));
-	printf("%d\n", strncmp(str1, str2, 0));
-
-}*/
+  ft_lstadd_front(&node2, node1);
+  curr = node1;
+  while (curr != NULL)
+  {
+    printf("%d\n", *((int *)curr->content));
+    curr = curr->next;
+  }
+}
+*/

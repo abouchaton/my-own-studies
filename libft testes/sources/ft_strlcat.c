@@ -6,39 +6,48 @@
 /*   By: abouchat <abouchat@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 09:41:34 by abouchat          #+#    #+#             */
-/*   Updated: 2024/09/25 12:32:49 by abouchat         ###   ########.fr       */
+/*   Updated: 2024/10/11 15:17:08 by abouchat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-size_t	ft_strlcat(char *dst, char *src, size_t size)
+#include "libft.h"
+
+size_t	ft_strlcat(char *dst, const char *src, size_t size)
 {
 	size_t	i;
-	size_t	len;
+	size_t	dst_len;
+	size_t	src_len;
 
-	i = 0;
-	len = 0;
-	while (dst[len] != '\0')
-		len++;
-	while (src[i] != '\0' && i < size - 1)
+	i = 1;
+	dst_len = ft_strlen(dst);
+	src_len = ft_strlen(src);
+	if (size == 0)
+		return (src_len);
+	if (!src || !src[i])
+		return (dst_len);
+	if (size < dst_len)
+		return (src_len + size);
+	while (i < size - dst_len && src[i - 1] != '\0')
 	{
-		if ((len + i) < size - 1)
-			dst[len + i] = src[i];
+		dst[i + dst_len - 1] = src[i - 1];
 		i++;
 	}
-	dst[len + i] = '\0';
-	return ((len + i) * sizeof(char));
+	dst[i + dst_len] = '\0';
+	if (size > dst_len)
+		return (dst_len + src_len);
+	return (src_len + size);
 }
 /*
 int	main(void)
 {
-	char	dest1[50] = "I'm gonna take ";
-	char	src1[50] = "";
-	char	dest2[50] = "I'm gonna take ";
-	char	src2[50] = "";
+	char	dest1[50] = "ab";
+	char	src1[50] = "cde";
+	char	dest2[50] = "ab";
+	char	src2[50] = "cde";
 
-	printf("%ld\n", ft_strlcat(dest1, src1, 40));
+	printf("MEU: %ld\n", ft_strlcat(dest1, src1, MAX));
 	printf("%s\n", dest1);
-	printf("%ld\n", strlcat(dest2, src2, 40));
+	printf("ESPERADO: %ld\n", strlcat(dest2, src2, MAX));
 	printf("%s\n", dest2);
 
 }*/

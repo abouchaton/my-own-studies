@@ -1,40 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strncmp.c                                       :+:      :+:    :+:   */
+/*   ft_lstadd_back_bonus.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abouchat <abouchat@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/24 16:03:19 by abouchat          #+#    #+#             */
-/*   Updated: 2024/10/03 15:58:36 by abouchat         ###   ########.fr       */
+/*   Created: 2024/10/07 11:07:17 by abouchat          #+#    #+#             */
+/*   Updated: 2024/10/07 15:31:01 by abouchat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_strncmp(const char *s1, const char *s2, size_t n)
+void	ft_lstadd_back(t_list **lst, t_list *new)
 {
-	size_t	i;
+	t_list	*curr;
 
-	i = 0;
-	while ((s1[i] != '\0' || s2[i] != '\0') && i < n)
+	curr = ft_lstlast(*lst);
+	if (new == NULL)
+		return ;
+	if (curr == NULL)
 	{
-		if (s1[i] < s2[i] || s1[i] > s2[i])
-			return (s1[i] - s2[i]);
-		else
-			i++;
+		*lst = new;
+		return ;
 	}
-	return (0);
+	curr->next = new;
 }
-/*
-int	main(void)
-{
-	#include <stdio.h>
-	#include <string.h>
-	char	*str1 = "salve";
-	char	*str2 = "zalve";
-
-	printf("%d\n", ft_strncmp(str1, str2, 0));
-	printf("%d\n", strncmp(str1, str2, 0));
-
-}*/

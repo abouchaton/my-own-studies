@@ -6,21 +6,11 @@
 /*   By: abouchat <abouchat@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 21:28:27 by abouchat          #+#    #+#             */
-/*   Updated: 2024/10/02 16:11:53 by abouchat         ###   ########.fr       */
+/*   Updated: 2024/10/03 15:37:38 by abouchat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
-
-static int	ft_strlen(const char *str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i] != '\0')
-		i++;
-	return (i);
-}
+#include "libft.h"
 
 char	*ft_strjoin(const char *s1, char const *s2)
 {

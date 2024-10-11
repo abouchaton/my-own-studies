@@ -6,9 +6,11 @@
 /*   By: abouchat <abouchat@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 12:06:14 by abouchat          #+#    #+#             */
-/*   Updated: 2024/09/30 11:47:15 by abouchat         ###   ########.fr       */
+/*   Updated: 2024/10/03 15:59:01 by abouchat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "libft.h"
 
 void	*ft_memcpy(void *dest, const void *src, size_t n)
 {
@@ -26,5 +28,5 @@ void	*ft_memcpy(void *dest, const void *src, size_t n)
 		d[i] = s[i];
 		i++;
 	}
-	return (dest);
+	return ((void *)dest);
 }

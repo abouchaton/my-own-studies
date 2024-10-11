@@ -6,9 +6,11 @@
 /*   By: abouchat <abouchat@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 12:07:08 by abouchat          #+#    #+#             */
-/*   Updated: 2024/09/24 12:29:44 by abouchat         ###   ########.fr       */
+/*   Updated: 2024/10/03 12:27:13 by abouchat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "libft.h"
 
 int	ft_tolower(int c)
 {

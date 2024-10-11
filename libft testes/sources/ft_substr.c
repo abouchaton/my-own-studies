@@ -6,20 +6,29 @@
 /*   By: abouchat <abouchat@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 19:59:26 by abouchat          #+#    #+#             */
-/*   Updated: 2024/09/27 19:59:26 by abouchat         ###   ########.fr       */
+/*   Updated: 2024/10/11 18:57:16 by abouchat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
+#include "libft.h"
 
 char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
 	char	*substr;
 	size_t	i;
+	size_t	s_len;
 
 	i = 0;
-	start = (size_t)start;
-	substr = malloc(sizeof(char) * len + 1);
+	s_len = ft_strlen(s);
+	if (start > s_len)
+	{
+		substr = (char *)malloc(sizeof(char));
+		substr[0] = '\0';
+		return (substr);
+	}
+	if (len > s_len)
+		len = s_len;
+	substr = (char *)malloc(sizeof(char) * len + 1);
 	if (!substr)
 		return (NULL);
 	while (i < len && s[start] != '\0')
@@ -34,10 +43,10 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 /*
 int	main(void)
 {
-	char	str1[10] = "salve";
+	char	str1[10] = "salvetropa";
 	char	*str2;
 
-	str2 = ft_substr(str1, 11, 1);
+	str2 = ft_substr(str1, 0, 20);
 	if (str2 == NULL)
 		write(1, "NULL", 4);
 	write(1, str2, 10);

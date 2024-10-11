@@ -6,9 +6,11 @@
 /*   By: abouchat <abouchat@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 12:57:44 by abouchat          #+#    #+#             */
-/*   Updated: 2024/09/25 16:55:54 by abouchat         ###   ########.fr       */
+/*   Updated: 2024/10/03 12:24:55 by abouchat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "libft.h"
 
 void	ft_bzero(void *s, size_t n)
 {

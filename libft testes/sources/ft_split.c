@@ -6,11 +6,11 @@
 /*   By: abouchat <abouchat@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 17:28:11 by abouchat          #+#    #+#             */
-/*   Updated: 2024/10/02 19:13:22 by abouchat         ###   ########.fr       */
+/*   Updated: 2024/10/11 15:45:01 by abouchat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
+#include "libft.h"
 
 static int	count_words(char const *s, char c)
 {
@@ -34,24 +34,25 @@ static int	count_words(char const *s, char c)
 	return (count);
 }
 
-static char	*ft_substr(char const *s, char c, int *i)
+static char	*find_word(char const *s, char c, int *i)
 {
 	int		start;
 	int		j;
 	char	*str;
 
-	start = *i;
 	j = 0;
-	while (s[*i] != c)
+	while (s[*i] == c)
+		(*i)++;
+	start = *i;
+	while (s[*i] != c && s[*i] != '\0')
 		(*i)++;
 	str = (char *)malloc(sizeof(char) * (*i - start) + 1);
 	if (!str)
 		return (NULL);
 	while (s[start] == c)
 		start++;
-	while (s[start] != c)
+	while (s[start] != c && s[start] != '\0')
 		str[j++] = s[start++];
-	*i = start + 1;
 	str[j] = '\0';
 	return (str);
 }
@@ -63,30 +64,39 @@ char	**ft_split(char const *s, char c)
 	int		arr_i;
 	int		i;
 
-	split_arr = (char **)malloc(sizeof(char *) * (count_words(s, c)) + 1);
 	arr_len = count_words(s, c);
+	split_arr = (char **)malloc(sizeof(char *) * (arr_len + 1));
+	if (!split_arr)
+		return (NULL);
 	arr_i = 0;
 	i = 0;
 	while (arr_i < arr_len)
 	{
-		split_arr[arr_i++] = ft_substr(s, c, &i);
+		split_arr[arr_i++] = find_word(s, c, &i);
 	}
 	split_arr[arr_len] = NULL;
 	return (split_arr);
 }
+/*
+int	main(void)
+{
+	#include <string.h>
+	#include <stdio.h>
+	char	*str;
+	char	**arr;
 
-// int	main(void)
-// {
-// 	char	*str = "1,2,3,4,5,6,7,8910";
-// 	char	**arr;
-
-// 	arr = ft_split(str, ',');
-
-// 	for (size_t i = 0; i < 9; i++)
-// 	{
-// 		if (arr[i] == NULL)
-// 			printf("NULL\n");
-// 		else
-// 			printf("%s\n", arr[i]);
-// 	}
-// }
+	str = strdup(",,,,,,,,,,    salve,,,,,tropa,kkkk,,,,,,");
+	arr = ft_split(str, ',');
+	for (size_t i = 0; i < 4; i++)
+	{
+		if (arr[i] == NULL)
+			printf("NULL\n");
+		else
+		{
+			printf("%s\n", arr[i]);
+			free (arr[i]);
+		}
+	}
+	free (arr);
+	free (str);
+}*/

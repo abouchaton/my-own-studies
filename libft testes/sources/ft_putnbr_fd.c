@@ -6,9 +6,11 @@
 /*   By: abouchat <abouchat@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 15:13:18 by abouchat          #+#    #+#             */
-/*   Updated: 2024/09/30 15:21:09 by abouchat         ###   ########.fr       */
+/*   Updated: 2024/10/03 12:25:53 by abouchat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "libft.h"
 
 void	ft_putnbr_fd(int n, int fd)
 {
