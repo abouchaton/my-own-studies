@@ -1,21 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isalpha.c                                       :+:      :+:    :+:   */
+/*   ft_tolower.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abouchat <abouchat@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/24 11:23:14 by abouchat          #+#    #+#             */
-/*   Updated: 2024/10/03 12:25:05 by abouchat         ###   ########.fr       */
+/*   Created: 2024/09/24 12:07:08 by abouchat          #+#    #+#             */
+/*   Updated: 2024/10/13 17:18:08 by abouchat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_isalpha(int c)
+int	ft_tolower(int c)
 {
-	if ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z'))
-		return (1024);
+	c = (unsigned char)c;
+	if (c >= 'A' && c <= 'Z')
+		return ((int)c + 32);
 	else
-		return (0);
+		return ((int)c);
 }

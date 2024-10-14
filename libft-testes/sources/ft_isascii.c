@@ -1,21 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_tolower.c                                       :+:      :+:    :+:   */
+/*   ft_isascii.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abouchat <abouchat@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/24 12:07:08 by abouchat          #+#    #+#             */
-/*   Updated: 2024/10/03 12:27:13 by abouchat         ###   ########.fr       */
+/*   Created: 2024/09/24 11:59:48 by abouchat          #+#    #+#             */
+/*   Updated: 2024/10/13 17:16:53 by abouchat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_tolower(int c)
+int	ft_isascii(int c)
 {
-	if (c >= 'A' && c <= 'Z')
-		return (c + 32);
+	c = (unsigned char)c;
+	if (c >= 0 && c <= 127)
+		return (1);
 	else
-		return (c);
+		return (0);
 }
