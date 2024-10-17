@@ -6,37 +6,56 @@
 /*   By: abouchat <abouchat@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 17:35:15 by abouchat          #+#    #+#             */
-/*   Updated: 2024/10/16 19:15:36 by abouchat         ###   ########.fr       */
+/*   Updated: 2024/10/17 19:40:38 by abouchat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftprintf.h"
 
-void	check_next_letter(char c, va_list *args)
+int	check_next_letter(char c, va_list args)
 {
+	int	count;
+
+	count = 0;
 	if (c == 'c')
-	{
-		ft_putchar_fd((va_arg(*args, int)), 1);
-	}
-		
+		count = ft_putchar_args((va_arg(args, int)));
+	else if (c == 's')
+		count = ft_putstr_args((va_arg(args, char *)));
+	else if (c == 'd' || c == 'i')
+		count = ft_putnbr_args((va_arg(args, int)));
+	else if (c == '%')
+		count = ft_putchar_args('%');
+	else if (c == 'x')
+		count = ft_print_hex_args((va_arg(args, unsigned int)), 0);
+	else if (c == 'X')
+		count = ft_print_hex_args((va_arg(args, unsigned int)), 1);
+	else if (c == 'p')
+		count = ft_putaddr_args((va_arg(args, void *)));
+	else if (c == 'u')
+		count = ft_putunsign_args((va_arg(args, unsigned int)));
+	return (count);
 }
 
 int	ft_printf(const char *format, ...)
 {
 	int i;
 	va_list args;
+	int	len;
 
+	len = 0;
 	va_start(args, format);
 	i = 0;
 	while (format[i] != '\0')
 	{
 		if (format[i] == '%')
 		{
-			check_next_letter(format[i + 1], &args);
+			len += check_next_letter(format[i + 1], args);
 			i++;
 		}
-		write(1,&format[i], 1);
+		else
+			len += ft_putchar_args(format[i]); 
 		i++;
 	}
-	return (0);
+	va_end(args);
+	return (len);
 }

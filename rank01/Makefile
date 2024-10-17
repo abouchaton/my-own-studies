@@ -1,7 +1,7 @@
 NAME = libftprintf.a
 CC = gcc
 CCFLAGS = -Wall -Wextra -Werror -I
-SRC = ft_printf.c 
+SRC = ft_printf.c ft_printf_utils.c ft_printf_utils2.c 
 OBJS := $(SRC:%.c=%.o)
 OBJS_BONUS := $(SRC_BONUS:%.c=%.o)
 OBJS_ALL = $(OBJS) $(OBJS_BONUS)
@@ -15,7 +15,7 @@ $(NAME): $(OBJS)
 	ar rcs $(NAME) $(OBJS)
 
 %.o: %.c
-	$(CC) $(CCFLAGS) libft/libft.a -o $@ -c $<
+	$(CC) $(CCFLAGS) libft/ -o $@ -c $<
 
 .PHONY: clean
 clean:
