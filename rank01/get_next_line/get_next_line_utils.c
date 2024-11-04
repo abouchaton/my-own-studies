@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "get_next_line.h"
 
 char	*ft_strdup(const char *s)
 {
@@ -47,10 +47,10 @@ int	ft_strchr(const char *s, int c)
 		}
 		i++;
 	}
-	return (NULL);
+	return (-1);
 }
 
-char	*ft_strjoin(const char *s1, char const *s2)
+char	*ft_strjoin(const char *s1, const char *s2)
 {
 	char	*str;
 	size_t	s1_len;
@@ -86,4 +86,33 @@ size_t	ft_strlen(const char *s)
 	while (s[i] != '\0')
 		i++;
 	return (i);
+}
+
+char	*ft_substr(char const *s, unsigned int start, size_t len)
+{
+	char	*substr;
+	size_t	i;
+	size_t	s_len;
+
+	i = 0;
+	s_len = ft_strlen(s);
+	if (start > s_len)
+	{
+		substr = (char *)malloc(sizeof(char));
+    substr[0] = '\0';
+		return (substr);
+	}
+	if (len >= s_len)
+	{
+		len = s_len;
+		substr = (char *)malloc(sizeof(char) * (len - start) + 1);
+	}
+	else
+		substr = (char *)malloc(sizeof(char) * len + 1);
+	if (!substr)
+		return (NULL);
+	while (i < len && s[start] != '\0')
+		substr[i++] = s[start++];
+	substr[i] = '\0';
+	return (substr);
 }
