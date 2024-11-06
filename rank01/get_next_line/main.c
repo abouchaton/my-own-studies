@@ -11,5 +11,7 @@ int main(void)
     {
       line = get_next_line(fd);
       printf("linha %d: %s\n", i + 1, line);
+    free(line);
+    line = NULL;
     }
 }
