@@ -6,11 +6,30 @@
 /*   By: abouchat <abouchat@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 17:56:52 by abouchat          #+#    #+#             */
-/*   Updated: 2024/11/06 20:21:19 by abouchat         ###   ########.fr       */
+/*   Updated: 2024/11/11 18:50:40 by abouchat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+
+void	free_func(char **ptr1, char **ptr2, char **ptr3)
+{
+	if (ptr1)
+	{
+		free(*ptr1);
+		*ptr1 =  NULL;
+	}
+	if (ptr2)
+	{
+		free(*ptr2);
+		*ptr2 =  NULL;
+	}
+	if (ptr3)
+	{
+		free(*ptr3);
+		*ptr3 =  NULL;
+	}
+}
 
 void	*ft_calloc(size_t nmemb, size_t size)
 {
@@ -51,20 +70,20 @@ static char	*stash_check(char **stash, int *index, char *out)
     	aux = *stash;
 		*stash = ft_substr(*stash, *index + 1, (ft_strlen(*stash) - (*index + 1)));
 		out = ft_strdup(bef_stash);
-		free(bef_stash);
-		bef_stash = NULL;
+		free_func(&bef_stash, NULL, NULL);
 	}
-	free(aux);
-	aux = NULL;
+	free_func(&aux, NULL, NULL);
 	return (out);
 }
 
-static char	*buf_check(char *buf, char *out, int *index, char **stash)
+static char	*buf_check(char *buf, char *out, int *index, char **stash, size_t bytes_read)
 {
 	char	*aux;
 	char	*bef_stash;
 
-	if (ft_strchr(buf, '\n') == -1)
+	if (bytes_read == 0)
+		return (out);
+	else if (ft_strchr(buf, '\n') == -1)
 	{
 		aux = out;
 		out = ft_strjoin(out, buf);
@@ -79,11 +98,9 @@ static char	*buf_check(char *buf, char *out, int *index, char **stash)
 		bef_stash = ft_substr(buf, 0, *index + 1);
    		aux = out;
 		out = ft_strjoin(out, bef_stash);
-		free(bef_stash);
-		bef_stash = NULL;
+		free_func(&bef_stash, NULL, NULL);
 	}
-	free(aux);
-	aux = NULL;
+	free_func(&aux, NULL, NULL);
 	return (out);
 }
 
@@ -94,26 +111,29 @@ char	*get_next_line(int fd)
 	size_t	bytes_read;
 	char	*buf;
 	int index;
-
+  
+	if (!(fd >= 0 && fd <= 1024) || BUFFER_SIZE == 0)
+		return (NULL);
 	index = -1;
 	out = NULL;
 	out = stash_check(&stash, &index, out);
-	buf = (char*)ft_calloc(BUFFER_SIZE + 1, sizeof(char));
-	bytes_read = BUFFER_SIZE;
+	buf = (char *)ft_calloc(BUFFER_SIZE + 1, sizeof(char));
+	if (index == -1)
+  	{
+		bytes_read = read(fd, buf, BUFFER_SIZE);
+		if (bytes_read == 0)
+			{
+				free_func(&out, &buf,  NULL);
+				return (NULL);
+			}
+		out = buf_check(buf, out, &index, &stash, bytes_read);
+  	}
 	while (bytes_read == BUFFER_SIZE && index == -1)
 	{
 		bytes_read = read(fd, buf, BUFFER_SIZE);
-		if (bytes_read == 0)
-		{
-			free(out);
-			out = NULL;
-			free(stash);
-			stash = NULL;
-			break;
-		}
-		out = buf_check(buf, out, &index, &stash);
+    	buf[bytes_read] = '\0';
+		out = buf_check(buf, out, &index, &stash, bytes_read);
 	}
-	free(buf);
-	buf = NULL;
+	free_func(&buf, NULL, NULL);
 	return (out);
 }
