@@ -6,11 +6,12 @@
 /*   By: abouchat <abouchat@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 17:56:52 by abouchat          #+#    #+#             */
-/*   Updated: 2024/11/11 18:50:40 by abouchat         ###   ########.fr       */
+/*   Updated: 2024/11/12 15:36:11 by abouchat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+#include <stdio.h>
 
 void	free_func(char **ptr1, char **ptr2, char **ptr3)
 {
@@ -53,6 +54,7 @@ static char	*stash_check(char **stash, int *index, char *out)
   	char  *bef_stash;
 	
 	aux = NULL;
+	printf("\nstash no momento: %s\n", *stash);
 	if (!*stash)
 	{
 		out = ft_strdup("");
@@ -62,7 +64,7 @@ static char	*stash_check(char **stash, int *index, char *out)
 		aux = out;
 		out = ft_strdup(*stash);
 	}
-	else
+	else if ((ft_strchr(*stash, '\n') >= 0) || (ft_strchr(*stash, '\0') >= 0))
 	{
 		*index = ft_strchr(*stash, '\n');
 		*index = (unsigned int)*index;
