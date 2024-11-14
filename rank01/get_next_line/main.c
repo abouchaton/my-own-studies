@@ -7,12 +7,12 @@
 
 int main(void)
 {
-  int fd = open("41_with_nl", O_RDONLY);
+  //int fd = open("41_with_nl", O_RDONLY);
   char *line;
 
   for(int i = 0; i < 10; i++)
     {
-      line = get_next_line(fd);
+      line = get_next_line(1000);
       printf("linha %d: %s\n", i + 1, line);
     free(line);
     line = NULL;
