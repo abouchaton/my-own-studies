@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abouchat <abouchat@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 17:56:52 by abouchat          #+#    #+#             */
-/*   Updated: 2024/11/16 16:40:16 by abouchat         ###   ########.fr       */
+/*   Updated: 2024/11/16 16:47:07 by abouchat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 #include <stdio.h>
 
 static void	free_func(char **ptr1, char **ptr2, char **ptr3)
@@ -115,7 +115,7 @@ static char	*read_loop(char *buf, char *out, char **stash, int fd)
 
 char	*get_next_line(int fd)
 {
-	static char	*stash;
+	static char	*stash[1024];
 	char		*out;
 	char		*buf;
 	int			index;
@@ -129,9 +129,9 @@ char	*get_next_line(int fd)
 	buf = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1));
 	while (i < BUFFER_SIZE)
 		buf[i++] = 0;
-	out = stash_check(&stash, &index, out);
+	out = stash_check(&stash[fd], &index, out);
 	if (index == -1)
-		out = read_loop(buf, out, &stash, fd);
+		out = read_loop(buf, out, &stash[fd], fd);
 	if (out && !out[0])
 		free_func(&out, NULL, NULL);
 	free_func(&buf, NULL, NULL);
